@@ -96,21 +96,7 @@ ggplot(df, aes(x="species")) + geom_bar()
 
 
 ```{python}
-# Include and execute your code here
-
-
-```
-
-
-```{python}
-# Include and execute your code here
-
-
-```
-
-
-```{python}
-# Include and execute your code here
+(ggplot(penguins, aes(x="body_mass_g", color="species")) + geom_density(size=2))
 
 
 ```

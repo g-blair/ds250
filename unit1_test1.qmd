@@ -49,6 +49,8 @@ _type your results and analysis here_
 ```{python}
 # Q1
 df.filter(pl.col('name') == "Felisha")
+
+print("The first year that the name Felisha was used was 1964.")
 ```
 
 
@@ -71,6 +73,8 @@ david_ut_max = (
 
 print(david_ut_max)
 
+print("The year that had the most babies named David was 1955, at 86389 babies.")
+
 ```
 
 
@@ -92,6 +96,8 @@ gavin_ut_max = (
 )
 
 print(gavin_ut_max)
+
+print("My name is Gavin. The year that my name hit its peak was 2007, with 11863 babies.")
 ```
 
 
@@ -117,6 +123,8 @@ utah_female_max = (
 )
 
 print(utah_female_max)
+
+print("In 2024, the most common female name in Utah was Olivia, with 215 babies.")
 
 ```
 

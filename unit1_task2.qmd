@@ -1,0 +1,121 @@
+---
+title: "Client Report - What's in a Name?"
+subtitle: "Unit 1 Task 2"
+author: "[Gavin Blair]"
+format:
+  html:
+    self-contained: true
+    page-layout: full
+    title-block-banner: true
+    toc: true
+    toc-depth: 3
+    toc-location: body
+    number-sections: false
+    html-math-method: katex
+    code-fold: true
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-copy: hover
+    code-tools:
+        source: false
+        toggle: true
+        caption: See code
+execute: 
+  warning: false
+    
+---
+
+```{python}
+import polars as pl
+import numpy as np
+from lets_plot import *
+LetsPlot.setup_html(isolated_frame=True)
+```
+
+```{python}
+# Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html
+
+# Include and execute your code here
+df = pl.read_csv("https://posit.byui.edu/content/0d43d66f-d3b7-4c43-8c36-52e3ed69e7f1/names_year_csv.csv")
+```
+
+
+## QUESTION 1
+
+<!-- Make sure at least one of your charts includes reference marks!! -->
+
+__How does your name at your birth year compare to its use historically? Your must provide a chart. The years labels on your charts should not include a comma.__ 
+
+_type your results and analysis here_
+
+```{python}
+# Q1
+usa = df.filter(pl.col('name') == 'Gavin')
+
+(
+    ggplot(data=usa)
+    + geom_line(aes(x='year', y='Total'))
+    + scale_x_continuous(
+        limits=[1900, 2020],
+        breaks=list(range(1900, 2021, 10))
+    )
+    # reference line for your birth year
+    + geom_vline(xintercept=2005, linetype='dashed', color='red')
+    + geom_text(x=2006, y=usa['Total'].max(), label='2005 (My Birth Year)', color='red')
+    + labs(
+        title="Popularity of the Name 'Gavin' Over Time",
+        x="Year",
+        y="Number of Babies Named Gavin"
+    )
+)
+
+print("My birth year is 2005, which was when the name 'Gavin satrted to gain some popularity. It hasn't reached its peak yet.")
+
+```
+
+
+## QUESTION 2
+
+__Think of a unique name from a famous movie. Plot the usage of that name and see how changes line up with the movie release. Does it look like the movie had an effect on usage?__  
+
+_type your results and analysis here_
+
+```{python}
+# Q2
+usa = df.filter(pl.col('name') == 'Anakin')
+
+(
+    ggplot(data=usa)
+    + geom_line(aes(x='year', y='Total'))
+    + scale_x_continuous(
+        limits=[1900, 2020],
+        breaks=list(range(1900, 2021, 10))
+    )
+)
+
+print("I know that 'Anakin' is an obvious choice, but I can't think of anything else. It should be obvious why the name got popular very quickly.")
+```
+
+## QUESTION 3
+
+__Mary, Martha, Peter, and Paul are all Christian names. From 1920 - 2000, compare the name usage of each of the four names in a single chart. What trends do you notice?__  
+
+_type your results and analysis here_
+
+```{python}
+# Q3
+usa = df.filter(
+    pl.col('name').is_in(['Mary', 'Martha', 'Peter', 'Paul'])
+)
+(
+    ggplot(data=usa)
+    + geom_line(aes(x='year', y='Total'))
+    + scale_x_continuous(
+        limits=[1920, 2000],
+        breaks=list(range(1920, 2000, 10))
+    )
+)
+
+print("I noticed that these names started in decline in popularity in the 1970's.")
+```
+<!-- Make sure at least one of your charts includes reference marks!! -->

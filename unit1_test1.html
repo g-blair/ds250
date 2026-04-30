@@ -2243,7 +2243,7 @@ vertical-align: -.125em;
   <li><a href="#question-4" id="toc-question-4">QUESTION 4</a></li>
   </ul>
 </nav>
-<div id="b488891f" class="cell" data-execution_count="1">
+<div id="37e18934" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars <span class="im">as</span> pl</span>
@@ -2253,7 +2253,7 @@ vertical-align: -.125em;
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>LetsPlot.setup_html(isolated_frame<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="71143521" class="cell" data-execution_count="2">
+<div id="4082a3c0" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html</span></span>
@@ -2266,14 +2266,16 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-1">QUESTION 1</h2>
 <p><strong>What was the earliest year that the name ‘Felisha’ was used?</strong></p>
 <p><em>type your results and analysis here</em></p>
-<div id="f8b9c5dd" class="cell" data-execution_count="3">
+<div id="3481a051" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q1</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;The first year that the name &#39;Felisha&#39; was used was in 1964.&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.<span class="bu">filter</span>(pl.col(<span class="st">&#39;name&#39;</span>) <span class="op">==</span> <span class="st">&quot;Felisha&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;The first year that the name Felisha was used was 1964.&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>The first year that the name &#39;Felisha&#39; was used was in 1964.</code></pre>
+<pre><code>The first year that the name Felisha was used was 1964.</code></pre>
 </div>
 </div>
 </section>
@@ -2281,14 +2283,33 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-2">QUESTION 2</h2>
 <p><strong>What year had the most babies named ‘David’? How many babies were named ‘David’ that year?</strong></p>
 <p><em>type your results and analysis here</em></p>
-<div id="919458f5" class="cell" data-execution_count="4">
+<div id="911638e4" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q2</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;The year that had the most babies named David was 1955, at 86389 babies.&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>david_ut_max <span class="op">=</span> (</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    df.<span class="bu">filter</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        pl.col(<span class="st">&quot;name&quot;</span>) <span class="op">==</span> <span class="st">&quot;David&quot;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    .sort(<span class="st">&quot;Total&quot;</span>, descending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    .head(<span class="dv">1</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    .select([<span class="st">&quot;year&quot;</span>, <span class="st">&quot;Total&quot;</span>])</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(david_ut_max)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;The year that had the most babies named David was 1955, at 86389 babies.&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>The year that had the most babies named David was 1955, at 86389 babies.</code></pre>
+<pre><code>shape: (1, 2)
+┌──────┬───────┐
+│ year ┆ Total │
+│ ---  ┆ ---   │
+│ i64  ┆ i64   │
+╞══════╪═══════╡
+│ 1955 ┆ 86389 │
+└──────┴───────┘
+The year that had the most babies named David was 1955, at 86389 babies.</code></pre>
 </div>
 </div>
 </section>
@@ -2296,14 +2317,33 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-3">QUESTION 3</h2>
 <p><strong>What year did your name hit its peak? How many babies were named your name in that year?</strong></p>
 <p><em>type your results and analysis here</em></p>
-<div id="a3e652d2" class="cell" data-execution_count="5">
+<div id="45d2001a" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q3</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;My name is Gavin. The year the name Gavin hit its peak was 2007, with 11863 babies.&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>gavin_ut_max <span class="op">=</span> (</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    df.<span class="bu">filter</span>(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        pl.col(<span class="st">&quot;name&quot;</span>) <span class="op">==</span> <span class="st">&quot;Gavin&quot;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    .sort(<span class="st">&quot;Total&quot;</span>, descending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    .head(<span class="dv">1</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    .select([<span class="st">&quot;year&quot;</span>, <span class="st">&quot;Total&quot;</span>])</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gavin_ut_max)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;My name is Gavin. The year that my name hit its peak was 2007, with 11863 babies.&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>My name is Gavin. The year the name Gavin hit its peak was 2007, with 11863 babies.</code></pre>
+<pre><code>shape: (1, 2)
+┌──────┬───────┐
+│ year ┆ Total │
+│ ---  ┆ ---   │
+│ i64  ┆ i64   │
+╞══════╪═══════╡
+│ 2007 ┆ 11863 │
+└──────┴───────┘
+My name is Gavin. The year that my name hit its peak was 2007, with 11863 babies.</code></pre>
 </div>
 </div>
 </section>
@@ -2311,14 +2351,40 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="question-4">QUESTION 4</h2>
 <p><strong>In the most recent year, what was the most common female name in Utah?</strong></p>
 <p><em>type your results and analysis here</em></p>
-<div id="4f74492b" class="cell" data-execution_count="6">
+<div id="41292bef" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q4</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;In 2024, the most common female name in Utah is Olivia at 362 babies.&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>boy_names <span class="op">=</span> [<span class="st">&quot;Liam&quot;</span>, <span class="st">&quot;Noah&quot;</span>, <span class="st">&quot;Oliver&quot;</span>, <span class="st">&quot;James&quot;</span>, <span class="st">&quot;Elijah&quot;</span>, <span class="st">&quot;William&quot;</span>, <span class="st">&quot;Henry&quot;</span>, <span class="st">&quot;Lucas&quot;</span>, <span class="st">&quot;Benjamin&quot;</span>, <span class="st">&quot;Theodore&quot;</span>]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>utah_female_max <span class="op">=</span> (</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    df.<span class="bu">filter</span>(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        pl.col(<span class="st">&quot;year&quot;</span>).is_between(<span class="dv">2018</span>, <span class="dv">2024</span>) <span class="op">&amp;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        pl.col(<span class="st">&quot;name&quot;</span>).is_in(boy_names).not_()</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    .sort([<span class="st">&quot;year&quot;</span>, <span class="st">&quot;UT&quot;</span>], descending<span class="op">=</span>[<span class="va">False</span>, <span class="va">True</span>])</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    .group_by(<span class="st">&quot;year&quot;</span>).head(<span class="dv">1</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    .select([<span class="st">&quot;year&quot;</span>,<span class="st">&quot;name&quot;</span>, <span class="st">&quot;UT&quot;</span>])</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    .sort(<span class="st">&quot;year&quot;</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(utah_female_max)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>In 2024, the most common female name in Utah is Olivia at 362 babies.</code></pre>
+<pre><code>shape: (7, 3)
+┌──────┬───────────┬─────┐
+│ year ┆ name      ┆ UT  │
+│ ---  ┆ ---       ┆ --- │
+│ i64  ┆ str       ┆ i64 │
+╞══════╪═══════════╪═════╡
+│ 2018 ┆ Olivia    ┆ 272 │
+│ 2019 ┆ Olivia    ┆ 265 │
+│ 2020 ┆ Olivia    ┆ 255 │
+│ 2021 ┆ Olivia    ┆ 257 │
+│ 2022 ┆ Olivia    ┆ 230 │
+│ 2023 ┆ Charlotte ┆ 202 │
+│ 2024 ┆ Olivia    ┆ 215 │
+└──────┴───────────┴─────┘</code></pre>
 </div>
 </div>
 <hr>

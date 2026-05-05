@@ -94,9 +94,11 @@ ggplot(df, aes(x="species")) + geom_bar()
 ##__Note that the data set contains substantially more observations of Adelie penguins than Chinstrap penguins.__
 ```
 
+_Note that there are more Adelie penguins than Chinstrap penguins._
 
 ```{python}
-(ggplot(penguins, aes(x="body_mass_g", color="species")) + geom_density(size=2))
+ggplot(df, aes(x="body_mass_g", color="species")) + geom_density(size=2)
 
-
+##__Note that there are more Adelie penguins than Chinstrap penguins.__
 ```
+_Note that Chinstrap penguins tend to have lower body mass at a higher density than Gentoo penguins._

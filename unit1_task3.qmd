@@ -1,0 +1,126 @@
+---
+title: "Client Report - Famous Names"
+subtitle: "Unit 1 Task 3"
+author: "Gavin Blair"
+format:
+  html:
+    self-contained: true
+    page-layout: full
+    title-block-banner: true
+    toc: true
+    toc-depth: 3
+    toc-location: body
+    number-sections: false
+    html-math-method: katex
+    code-fold: true
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-copy: hover
+    code-tools:
+        source: false
+        toggle: true
+        caption: See code
+execute: 
+  warning: false
+    
+---
+
+```{python}
+import polars as pl
+import numpy as np
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+```
+
+```{python}
+# Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html
+
+# Include and execute your code here
+df = pl.read_csv("https://posit.byui.edu/content/0d43d66f-d3b7-4c43-8c36-52e3ed69e7f1/names_year_csv.csv")
+```
+
+
+
+## QUESTION 1
+
+<!-- Make sure at least one of your charts includes reference marks!! -->
+
+__Make a new column that represents the total number of babies with your name for only those states in which you have lived. (If you have only ever lived in one state, pick at least one other state so you get practice summing across columns). Make a graph displaying that total for your name over time.__
+
+_type your results and analysis here_
+
+```{python}
+# Q1
+plot_data = (
+    df
+    .filter(pl.col("name") == "Gavin")
+    .select([
+        pl.col("ID").sum().alias("ID"),
+        pl.col("HI").sum().alias("HI"),
+        pl.col("VA").sum().alias("VA")
+    ])
+    .melt(variable_name="state", value_name="total_babies")
+    .to_dict(as_series=False)
+)
+
+ggplot(plot_data, aes(x="state", y="total_babies")) + \
+    geom_bar(stat="identity")
+```
+_The states I lived in are Idaho, Hawaii, and Virginia. You can see that the namew "Gavin" is most popular in Virginia._
+
+## QUESTION 2
+
+1. __Let's look at a name that is special for members of the church: Brigham. For each year, calculate what proportion of babies named Brigham were born in Idaho and Utah? Make a graph displaying the proportion over time.__  
+
+_type your results and analysis here_
+
+```{python}
+# Q2
+filtered = df.filter(pl.col("name") == "Brigham")
+
+filtered = filtered.with_columns(
+    ((pl.col("ID") + pl.col("UT")) / pl.col("Total")).alias("proportion_ID_UT")
+)
+
+plot_data = (
+    filtered
+    .select(["year", "proportion_ID_UT"])
+    .sort("year")
+    .to_dict(as_series=False)
+)
+
+ggplot(plot_data, aes(x="year", y="proportion_ID_UT")) + \
+    geom_line() + \
+    ggtitle("Proportion of Babies Named Brigham in ID and UT Over Time")
+
+```
+
+_You can see that the name "Brigham" was popular in Idaho and Utah for a while, but then started to get less and less popular because of the other states._
+<!-- Make sure at least one of your charts includes reference marks!! -->
+
+## QUESTION 3
+
+1. __Consider doing some data validation. For the name David, calculate a sum of all 50 states and District of Columbia for each year. Now compare that total to the value in the 'Total' column. In which years, if any, do they not agree?__
+
+_type your results and analysis here_
+
+```{python}
+# Q3
+state_cols = [col for col in df.columns if col not in ["name", "year", "Total"]]
+
+comparison = (
+    df
+    .filter(pl.col("name") == "David")
+    .with_columns(
+        sum(pl.col(col) for col in state_cols).alias("computed_total")
+    )
+    .select(["year", "computed_total", "Total"])
+    .sort("year")
+)
+
+comparison
+
+```
+
+_They all seem to agree._

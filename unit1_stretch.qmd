@@ -54,3 +54,4 @@ usa = df.filter(pl.col('name') == 'Elliot')
     )
 )
 ```
+_This graph shows the popularity of the name Elliot over time. The dotted lines are for releases of E.T._

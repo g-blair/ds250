@@ -159,3 +159,5 @@ ggplot(df) + \
     )
 
 ```
+
+__From the boxplot, we can see that the distribution of weather-related flight delays varies across seasons. The median delay is highest in the Winter season, followed by Fall, Spring, and Summer. The Winter season also shows a wider range of delays, indicating more variability in weather-related delays during that time. In contrast, the Summer season has a narrower range and lower median, suggesting fewer weather-related delays. Overall, it appears that weather-related flight delays are more common and variable in the colder months compared to the warmer months.__

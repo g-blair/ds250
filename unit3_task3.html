@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="[STUDENT NAME]">
+<meta name="author" content="Gavin Blair">
 
 <title>Client Report - Joins</title>
 <style>
@@ -2232,7 +2232,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>[STUDENT NAME] </p>
+               <p>Gavin Blair </p>
             </div>
     </div>
       
@@ -2257,7 +2257,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
   <li><a href="#question-2" id="toc-question-2">QUESTION 2</a></li>
   </ul>
 </nav>
-<div id="98272e87" class="cell" data-execution_count="1">
+<div id="3e0b3832" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars <span class="im">as</span> pl</span>
@@ -2268,7 +2268,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>LetsPlot.setup_html(isolated_frame<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="f50dfdfb" class="cell" data-execution_count="2">
+<div id="eaf6fd53" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html</span></span>
@@ -2282,8 +2282,8 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="question-1" class="level2">
 <h2 class="anchored" data-anchor-id="question-1">QUESTION 1</h2>
 <p><strong>Write an SQL query that pulls in the the salaries table and the collegeplaying table (and any other tables you might need) and store them in polars dataframes. In Python Polars, combine the dataframes to create a list of baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, yearID and teamID associated with each salary.</strong></p>
-<p><em>type your results and analysis here</em></p>
-<div id="368a4451" class="cell" data-execution_count="3">
+<p><em>It appears that the schoolID for BYU-Idaho is “idbyuid”. The playerID that seems to have the highest overall salary is stephga01, with making at least 800,000 dollars per year.</em></p>
+<div id="beaed3e6" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span>
@@ -2339,11 +2339,11 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 │ ---       ┆ ---      │
 │ str       ┆ str      │
 ╞═══════════╪══════════╡
-│ erickra01 ┆ idaho    │
-│ fitzkpa01 ┆ idaho    │
 │ stonebi01 ┆ idaho    │
-│ schroke01 ┆ idaho    │
 │ reberfr01 ┆ idaho    │
+│ schroke01 ┆ idaho    │
+│ fitzkpa01 ┆ idaho    │
+│ erickra01 ┆ idaho    │
 └───────────┴──────────┘
 shape: (30, 5)
 ┌───────────┬──────────┬──────────┬────────┬────────┐
@@ -2371,8 +2371,8 @@ shape: (30, 5)
 <ol type="1">
 <li>Pick any two baseball teams and compare them using a metric of your choice (average salary, home runs, number of wins, etc). Be creative! Write an SQL query to read in the table(s) you need, then use polars to manipulate the data. Finally, make a graph using Lets-Plot to visualize the comparison. What do you learn?</li>
 </ol>
-<p><em>Describe your results and analysis here</em></p>
-<div id="d38d44f2" class="cell" data-execution_count="4">
+<p><em>This is comparing the salary between BOS and NYA. NYA has a higher average salary in most years.</em></p>
+<div id="c4892d7e" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span>
@@ -2439,7 +2439,7 @@ shape: (30, 5)
 //# sourceMappingURL=lets-plot.js.map</script>
    
    
-          <div id="VjLMfC"></div>
+          <div id="URtr8W"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
    
    (function() {
@@ -2464,7 +2464,7 @@ shape: (30, 5)
        };
    }
    
-   const containerDiv = document.getElementById("VjLMfC");
+   const containerDiv = document.getElementById("URtr8W");
    let fig = null;
    
    function renderPlot() {

@@ -1,7 +1,7 @@
 ---
 title: "Client Report - Joins"
 subtitle: "Unit 3 Task 3"
-author: "[STUDENT NAME]"
+author: "Gavin Blair"
 format:
   html:
     self-contained: true

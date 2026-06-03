@@ -1,0 +1,145 @@
+---
+title: "Client Report - Joins"
+subtitle: "Unit 3 Task 3"
+author: "[STUDENT NAME]"
+format:
+  html:
+    self-contained: true
+    page-layout: full
+    title-block-banner: true
+    toc: true
+    toc-depth: 3
+    toc-location: body
+    number-sections: false
+    html-math-method: katex
+    code-fold: true
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-copy: hover
+    code-tools:
+        source: false
+        toggle: true
+        caption: See code
+execute: 
+  warning: false
+    
+---
+
+```{python}
+import polars as pl
+import numpy as np
+import sqlite3
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+```
+
+
+```{python}
+# Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html
+
+# Include and execute your code here
+sqlite_file = 'lahmansbaseballdb.sqlite'
+# this file must be in the same location as your .qmd or .py file
+con = sqlite3.connect(sqlite_file)
+```
+
+## QUESTION 1
+
+__Write an SQL query that pulls in the the salaries table and the collegeplaying table (and any other tables you might need) and store them in polars dataframes. In Python Polars, combine the dataframes to create a list of baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, yearID and teamID associated with each salary.__
+
+_It appears that the schoolID for BYU-Idaho is "idbyuid". The playerID that seems to have the highest overall salary is stephga01, with making at least 800,000 dollars per year._
+
+```{python}
+# Include and execute your code here
+
+college_query = """
+SELECT playerID, schoolID
+FROM CollegePlaying
+"""
+
+salary_query = """
+SELECT playerID, yearID, teamID, salary
+FROM Salaries
+"""
+
+college_df = pl.read_database(college_query, con)
+salary_df = pl.read_database(salary_query, con)
+
+print(
+    college_df
+    .filter(pl.col("schoolID").str.contains("idaho", literal=False))
+    .unique()
+    .sort("schoolID")
+)
+
+byui_players = (
+    college_df
+    .filter(pl.col("schoolID") == "idbyuid")
+)
+
+byui_salary_table = (
+    byui_players
+    .join(
+        salary_df,
+        on="playerID",
+        how="inner"
+    )
+    .select([
+        "playerID",
+        "schoolID",
+        "salary",
+        "yearID",
+        "teamID"
+    ])
+    .sort(["playerID", "yearID"])
+)
+
+print(byui_salary_table)
+```
+
+
+## QUESTION 2
+
+1. Pick any two baseball teams and compare them using a metric of your choice (average salary, home runs, number of wins, etc). Be creative! Write an SQL query to read in the table(s) you need, then use polars to manipulate the data. Finally, make a graph using Lets-Plot to visualize the comparison. What do you learn?
+
+_This is comparing the salary between BOS and NYA. NYA has a higher average salary in most years._
+
+```{python}
+# Include and execute your code here
+salary_query = """
+SELECT yearID, teamID, salary
+FROM Salaries
+WHERE teamID IN ('NYA', 'BOS')
+"""
+
+salary_df = pl.read_database(salary_query, con)
+
+team_salary = (
+    salary_df
+    .group_by(["yearID", "teamID"])
+    .agg(
+        pl.col("salary").mean().alias("avg_salary")
+    )
+    .sort(["yearID", "teamID"])
+)
+
+print(team_salary)
+
+plot_data = team_salary.to_dict(as_series=False)
+
+(
+    ggplot(plot_data, aes(x="yearID", y="avg_salary", color="teamID"))
+    + geom_line()
+    + geom_point()
+    + labs(
+        title="Average Player Salary by Year",
+        x="Year",
+        y="Average Salary",
+        color="Team"
+    )
+)
+
+```
+
+

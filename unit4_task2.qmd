@@ -1,0 +1,204 @@
+---
+title: "Client Report -How good is it, really?"
+subtitle: "Unit 4 Task 2"
+author: "Gavin Blair"
+format:
+  html:
+    self-contained: true
+    page-layout: full
+    title-block-banner: true
+    toc: true
+    toc-depth: 3
+    toc-location: body
+    number-sections: false
+    html-math-method: katex
+    code-fold: true
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-copy: hover
+    code-tools:
+        source: false
+        toggle: true
+        caption: See code
+execute: 
+  warning: false
+    
+---
+
+```{python}
+import polars as pl
+import numpy as np
+from lets_plot import *
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.inspection import permutation_importance
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    confusion_matrix
+)
+# add the additional libraries you need to import for ML here
+
+LetsPlot.setup_html(isolated_frame=True)
+```
+
+
+```{python}
+# import your data here using polars and the URL
+url = "https://github.com/byuidatascience/data4dwellings/raw/master/data-raw/dwellings_ml/dwellings_ml.csv"
+df = pl.read_csv(url)
+
+```
+
+## QUESTION 1
+
+1. __Describe the quality of your classification model using 2-3 different evaluation metrics.__ You also need to explain how to define/interpret each of the evaluation metrics you use.  
+
+_The three evaluation metrics used are accuracy, precision, and recall. Accuracy measures the proportion of correct predictions among all predictions. Precision measures the proportion of true positive predictions among all positive predictions. Recall measures the proportion of true positive predictions among all actual positive instances._
+
+```{python}
+# Include and execute your code here
+# Don't forget, you need another import statement to import the desired ML model from sklearn
+df = df.with_columns(
+    (pl.col("netprice") > pl.col("netprice").median())
+    .cast(pl.Int8)
+    .alias("high_price")
+)
+
+X = df.select(
+    [
+        "abstrprd",
+        "livearea",
+        "finbsmnt",
+        "basement",
+        "yrbuilt",
+        "totunits",
+        "stories",
+        "nocars",
+        "numbdrm",
+        "numbaths"
+    ]
+)
+
+y = df["high_price"]
+
+X_np = X.to_numpy()
+y_np = y.to_numpy()
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X_np,
+    y_np,
+    test_size=0.3,
+    random_state=42
+)
+
+model = RandomForestClassifier(
+    n_estimators=200,
+    random_state=42
+)
+
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+
+print("Accuracy:", accuracy)
+print("Precision:", precision)
+print("Recall:", recall)
+
+print("\nConfusion Matrix")
+print(confusion_matrix(y_test, y_pred))
+```
+
+
+## QUESTION 2
+
+1. __Justify your classification model by discussing the most important features selected by your model.__ This discussion should include a plot of permutation importance values for the most important features. Were there any features you thought would be importance but weren't?
+
+_The permutation importance plot shows the impact of each feature on the model's performance. Features with higher importance values have a greater effect on the predictions. The most important one is the living area._
+
+```{python}
+# Include and execute your code here
+perm = permutation_importance(
+    model,
+    X_test,
+    y_test,
+    n_repeats=20,
+    random_state=42
+)
+
+importance_df = (
+    pl.DataFrame({
+        "feature": X.columns,
+        "importance": perm.importances_mean
+    })
+    .sort("importance", descending=True)
+)
+
+top_features = importance_df.head(10)
+
+top_features
+
+ggplot(
+    top_features,
+    aes(x="importance", y="feature")
+) + \
+geom_bar(stat="identity") + \
+labs(
+    title="Permutation Importance",
+    x="Importance",
+    y="Feature"
+)
+```
+
+## QUESTION 3
+
+1. __For the 3 most important features, explain their relationship to the target variable. Use a plot to illustrate the relationship.__ (3 plots minimum)
+
+_This graph is measuring the living area, the number of bathrooms, and the year built in relation to the net price. The more recent the house, the higher the net price tends to be._
+
+```{python}
+# Include and execute your code here
+top3 = importance_df.head(3)["feature"].to_list()
+
+print(top3)
+
+ggplot(
+    df,
+    aes(x="livearea", y="netprice")
+) + \
+geom_point(alpha=.3) + \
+labs(
+    title="Living Area vs Net Price",
+    x="Living Area",
+    y="Net Price"
+)
+
+ggplot(
+    df,
+    aes(x="numbaths", y="netprice")
+) + \
+geom_point(alpha=.3) + \
+labs(
+    title="Bathrooms vs Net Price",
+    x="Number of Bathrooms",
+    y="Net Price"
+)
+
+ggplot(
+    df,
+    aes(x="yrbuilt", y="netprice")
+) + \
+geom_point(alpha=.3) + \
+labs(
+    title="Year Built vs Net Price",
+    x="Year Built",
+    y="Net Price"
+)
+
+```

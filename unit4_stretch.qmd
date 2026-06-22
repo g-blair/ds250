@@ -1,0 +1,140 @@
+---
+title: "Client Report - Can You Predict That?"
+subtitle: "Unit 4 Stretch"
+author: "Gavin Blair"
+format:
+  html:
+    self-contained: true
+    page-layout: full
+    title-block-banner: true
+    toc: true
+    toc-depth: 3
+    toc-location: body
+    number-sections: false
+    html-math-method: katex
+    code-fold: true
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-copy: hover
+    code-tools:
+        source: false
+        toggle: true
+        caption: See code
+execute: 
+  warning: false
+    
+---
+
+```{python}
+import polars as pl
+import numpy as np
+from lets_plot import *
+
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import (
+    mean_absolute_error,
+    mean_squared_error,
+    r2_score
+)
+
+LetsPlot.setup_html(isolated_frame=True)
+
+```
+
+
+```{python}
+# import your data here using polars and the URL
+dwelling_url = "https://github.com/byuidatascience/data4dwellings/raw/master/data-raw/dwellings_ml/dwellings_ml.csv"
+
+neighborhood_url = "https://github.com/byuidatascience/data4dwellings/raw/master/data-raw/dwellings_neighborhoods_ml/dwellings_neighborhoods_ml.csv"
+
+df = pl.read_csv(dwelling_url)
+neighborhoods = pl.read_csv(neighborhood_url)
+
+housing = df.join(
+    neighborhoods,
+    on="parcel",
+    how="left"
+)
+
+housing.head()
+
+```
+
+```{python}
+numeric_cols = [
+    "livearea",
+    "finbsmnt",
+    "basement",
+    "yrbuilt",
+    "totunits",
+    "stories",
+    "nocars",
+    "numbdrm",
+    "numbaths",
+    "sprice"
+]
+
+housing_num = housing.select(numeric_cols)
+
+X1 = df.drop(["parcel", "yrbuilt"]).to_numpy()
+
+y1 = df["yrbuilt"].to_numpy()
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X1,
+    y1,
+    test_size=0.2,
+    random_state=42
+)
+
+model1 = RandomForestRegressor(
+    n_estimators=100,
+    random_state=42
+)
+
+model1.fit(X_train, y_train)
+
+pred1 = model1.predict(X_test)
+
+mae1 = mean_absolute_error(y_test, pred1)
+rmse1 = np.sqrt(mean_squared_error(y_test, pred1))
+r21 = r2_score(y_test, pred1)
+
+print("Original Data")
+print("MAE =", round(mae1,2))
+print("RMSE =", round(rmse1,2))
+print("R² =", round(r21,3))
+```
+
+```{python}
+X2 = housing.drop(["parcel", "yrbuilt"]).to_numpy()
+
+y2 = housing["yrbuilt"].to_numpy()
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X2,
+    y2,
+    test_size=0.2,
+    random_state=42
+)
+
+model2 = RandomForestRegressor(
+    n_estimators=100,
+    random_state=42
+)
+
+model2.fit(X_train, y_train)
+
+pred2 = model2.predict(X_test)
+
+mae2 = mean_absolute_error(y_test, pred2)
+rmse2 = np.sqrt(mean_squared_error(y_test, pred2))
+r22 = r2_score(y_test, pred2)
+
+print("Neighborhood Data")
+print("MAE =", round(mae2,2))
+print("RMSE =", round(rmse2,2))
+print("R² =", round(r22,3))
+```

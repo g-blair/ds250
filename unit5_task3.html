@@ -2259,7 +2259,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
   <li><a href="#results-1" id="toc-results-1">Results</a></li>
   </ul>
 </nav>
-<div id="907e3163" class="cell" data-execution_count="1">
+<div id="fd288fc5" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars <span class="im">as</span> pl </span>
@@ -2276,7 +2276,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <!-- The first 10 rows are not part of the datset we need.
 
 The columns headers are split across two rows. We need to clean and simplify the column headers-->
-<div id="9f189674" class="cell" data-execution_count="2">
+<div id="a007a8e5" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in and tidy up the first row</span></span>
@@ -2312,7 +2312,7 @@ The columns headers are split across two rows. We need to clean and simplify the
 </details>
 </div>
 <!-- Combine series q and a into one series to be used as column names-->
-<div id="5564dee2" class="cell" data-execution_count="3">
+<div id="14f3b564" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> pl.Series(pl.read_csv(data_url, skip_rows <span class="op">=</span> <span class="dv">11</span>, n_rows<span class="op">=</span><span class="dv">1</span>, has_header<span class="op">=</span><span class="va">False</span>, encoding <span class="op">=</span> <span class="st">&#39;utf8-lossy&#39;</span>).row(<span class="dv">0</span>))</span>
@@ -2326,7 +2326,7 @@ The columns headers are split across two rows. We need to clean and simplify the
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="afcb6056" class="cell" data-execution_count="4">
+<div id="840a8988" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Now combine the two series, each of which contains part of the desired column header</span></span>
@@ -2345,15 +2345,15 @@ The columns headers are split across two rows. We need to clean and simplify the
  - Conclusion: this is where you will discuss the implication of the results, including any limitations of the analysis, and recommendations for actions/future work. It may feel repetitive to the executive summary, but it should be more detailed and include any additional insights you gained from the analysis. -->
 <section id="executive-summary" class="level2">
 <h2 class="anchored" data-anchor-id="executive-summary">Executive Summary</h2>
-<p><em>type your write-up and analysis here</em></p>
+<p><em>This is to show if people consider themselves to be Star Wars fans. Have they seen the movies? Do they know the characters? Are they also fans of Star Trek?</em></p>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
-<p>_The survey data required several preprocessing steps before it could be used for machine learning. The first two rows of the dataset were combined to create meaningful column names, and unnecessary text was removed from the headers. Missing values in categorical variables were replaced with an “Unknown” category so that responses would not be discarded.</p>
-<p>The response variable for this analysis was whether the respondent considered themselves to be a Star Wars fan. This variable was converted into a binary target variable, where “Yes” was coded as 1 and “No” was coded as 0.</p>
-<p>Because nearly all survey responses were categorical, one-hot encoding was used to convert them into numeric variables that could be used by the machine learning algorithm. Identifier columns and the target variable were removed from the predictor dataset before training.</p>
-<p>The cleaned data was divided into training and testing sets using a 75%/25% split. A Random Forest classifier was selected because it performs well with many categorical predictors and can model complex relationships without requiring extensive feature engineering. Model performance was evaluated using a classification report, and permutation importance was used to determine which variables contributed most to the model’s predictions._</p>
-<div id="528bf742" class="cell" data-execution_count="5">
+<p><em>The survey data required several preprocessing steps before it could be used for machine learning. The first two rows of the dataset were combined to create meaningful column names, and unnecessary text was removed from the headers. Missing values in categorical variables were replaced with an “Unknown” category so that responses would not be discarded.</em></p>
+<p><em>The response variable for this analysis was whether the respondent considered themselves to be a Star Wars fan. This variable was converted into a binary target variable, where “Yes” was coded as 1 and “No” was coded as 0.</em></p>
+<p><em>Because nearly all survey responses were categorical, one-hot encoding was used to convert them into numeric variables that could be used by the machine learning algorithm. Identifier columns and the target variable were removed from the predictor dataset before training.</em></p>
+<p><em>The cleaned data was divided into training and testing sets using a 75%/25% split. A Random Forest classifier was selected because it performs well with many categorical predictors and can model complex relationships without requiring extensive feature engineering. Model performance was evaluated using a classification report, and permutation importance was used to determine which variables contributed most to the model’s predictions.</em></p>
+<div id="dd253cdb" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Methods</span></span>
@@ -3299,7 +3299,7 @@ forceTheme('sk-container-id-1');</script>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
 <p><em>The Random Forest model was evaluated using a 75/25 train-test split. The classification report summarizes the model’s precision, recall, F1-score, and overall accuracy. Permutation importance was then used to identify which survey responses were the strongest predictors of whether a respondent considered themselves to be a Star Wars fan.</em></p>
-<div id="4db921ce" class="cell" data-execution_count="6">
+<div id="d5ec8aa3" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span>
@@ -3315,35 +3315,37 @@ forceTheme('sk-container-id-1');</script>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    rf,</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    X_test,</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    y_test,</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Polars DataFrame of feature importance</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>importance_df <span class="op">=</span> (</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    pl.DataFrame({</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Feature&quot;</span>: X.columns,</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Importance&quot;</span>: importance.importances_mean</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    .sort(<span class="st">&quot;Importance&quot;</span>, descending<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the 15 most important features</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>importance_df.head(<span class="dv">15</span>)</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot feature importance</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>ggplot(</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    importance_df.head(<span class="dv">15</span>),</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    aes(</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">&quot;Importance&quot;</span>,</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">&quot;Feature&quot;</span></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>) <span class="op">+</span> <span class="op">\</span></span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>geom_bar(stat<span class="op">=</span><span class="st">&quot;identity&quot;</span>) <span class="op">+</span> <span class="op">\</span></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>labs(</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">&quot;Top 15 Most Important Features&quot;</span>,</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">&quot;Permutation Importance&quot;</span>,</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">&quot;Feature&quot;</span></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    n_repeats<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    n_jobs<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Polars DataFrame of feature importance</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>importance_df <span class="op">=</span> (</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    pl.DataFrame({</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Feature&quot;</span>: X.columns,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Importance&quot;</span>: importance.importances_mean</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    .sort(<span class="st">&quot;Importance&quot;</span>, descending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the 15 most important features</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>importance_df.head(<span class="dv">15</span>)</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot feature importance</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>ggplot(</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    importance_df.head(<span class="dv">15</span>),</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    aes(</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">&quot;Importance&quot;</span>,</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">&quot;Feature&quot;</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>) <span class="op">+</span> <span class="op">\</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>geom_bar(stat<span class="op">=</span><span class="st">&quot;identity&quot;</span>) <span class="op">+</span> <span class="op">\</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>labs(</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">&quot;Top 15 Most Important Features&quot;</span>,</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">&quot;Permutation Importance&quot;</span>,</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">&quot;Feature&quot;</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>              precision    recall  f1-score   support
@@ -3366,7 +3368,7 @@ weighted avg       0.91      0.91      0.91       297
 //# sourceMappingURL=lets-plot.js.map</script>
    
    
-          <div id="gPE9g1"></div>
+          <div id="Astiqf"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
    
    (function() {
@@ -3391,15 +3393,15 @@ weighted avg       0.91      0.91      0.91       297
        };
    }
    
-   const containerDiv = document.getElementById("gPE9g1");
+   const containerDiv = document.getElementById("Astiqf");
    let fig = null;
    
    function renderPlot() {
        if (fig === null) {
            const plotSpec = {
 "data":{
-"Feature":["star_trek_fan_No","star_trek_fan_Yes","seen_Episode_VI_Unknown","fav_Yoda_Very favorably","seen_Episode_VI_Star Wars: Episode VI Return of the Jedi","fav_Anakin_Skywalker_Very favorably","fav_Padme_Amidala_Neither favorably nor unfavorably (neutral)","fav_Lando_Calrissian_Unfamiliar (N/A)","fav_C-3P0_Very favorably","fav_R2_D2_Very favorably","know_expanded_universe_No","seen_Episode_IV_Unknown","seen_Episode_V_Unknown","rank_Episode_I_6","rank_Episode_IV_6"],
-"Importance":[0.012794612794612758,0.012121212121212066,0.011447811447811396,0.008754208754208714,0.006060606060606033,0.006060606060606033,0.005387205387205362,0.004713804713804693,0.004713804713804693,0.004040404040404022,0.004040404040404022,0.0033670033670033517,0.0033670033670033517,0.0033670033670033517,0.0033670033670033517]
+"Feature":["star_trek_fan_No","star_trek_fan_Yes","seen_Episode_VI_Unknown","fav_Yoda_Very favorably","fav_Anakin_Skywalker_Very favorably","fav_Padme_Amidala_Neither favorably nor unfavorably (neutral)","fav_Yoda_Somewhat favorably","seen_Episode_VI_Star Wars: Episode VI Return of the Jedi","rank_Episode_IV_6","rank_Episode_V_1","rank_Episode_V_3","rank_Episode_VI_1","fav_Lando_Calrissian_Unfamiliar (N/A)","fav_Boba_Fett_Unfamiliar (N/A)","fav_R2_D2_Very favorably"],
+"Importance":[0.01234567901234566,0.012345679012345623,0.010101010101010055,0.010101010101010055,0.0056116722783389195,0.0056116722783389195,0.004489337822671136,0.0033670033670033517,0.0033670033670033517,0.0033670033670033517,0.0033670033670033517,0.0033670033670033517,0.0033670033670033517,0.0033670033670033517,0.0033670033670033517]
 },
 "mapping":{
 "x":"Importance",
@@ -3490,7 +3492,7 @@ weighted avg       0.91      0.91      0.91       297
 </section>
 <section id="results-1" class="level2">
 <h2 class="anchored" data-anchor-id="results-1">Results</h2>
-<p><em>type your report here</em></p>
+<p><em>The most common result in the permutation importance analysis was that respondents who had seen the Star Wars films were more likely to identify as fans.</em></p>
 </section>
 
 </main>

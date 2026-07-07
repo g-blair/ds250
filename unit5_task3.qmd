@@ -125,6 +125,90 @@ _The cleaned data was divided into training and testing sets using a 75%/25% spl
 
 ```{python}
 ## Methods
+# Stretch Requirement
+# Validate the dataset by recreating two visuals from the original article
+
+# -------------------------
+# Visual 1: Have you seen each Star Wars movie?
+# -------------------------
+
+seen_cols = [
+    "seen_Episode_I",
+    "seen_Episode_II",
+    "seen_Episode_III",
+    "seen_Episode_IV",
+    "seen_Episode_V",
+    "seen_Episode_VI"
+]
+
+seen_plot = (
+    df.select(seen_cols)
+      .unpivot(variable_name="Movie", value_name="Seen")
+      .filter(pl.col("Seen") == "Yes")
+      .group_by("Movie")
+      .len()
+      .with_columns(
+          (
+              pl.col("len") /
+              df.height * 100
+          ).alias("Percent")
+      )
+)
+
+ggplot(
+    seen_plot,
+    aes(
+        x="Movie",
+        y="Percent"
+    )
+) + \
+geom_bar(
+    stat="identity",
+    fill="#4E79A7"
+) + \
+labs(
+    title="Have Seen Each Star Wars Film",
+    subtitle="Percent of respondents",
+    x="Movie",
+    y="Percent"
+) + \
+theme(axis_text_x=element_text(angle=45, hjust=1))
+
+
+# -------------------------
+# Visual 2: Are you a Star Trek fan?
+# -------------------------
+
+trek_plot = (
+    df.group_by("star_trek_fan")
+      .len()
+      .with_columns(
+          (
+              pl.col("len") /
+              pl.col("len").sum() * 100
+          ).alias("Percent")
+      )
+      .sort("Percent", descending=True)
+)
+
+ggplot(
+    trek_plot,
+    aes(
+        x="star_trek_fan",
+        y="Percent"
+    )
+) + \
+geom_bar(
+    stat="identity",
+    fill="#E15759"
+) + \
+labs(
+    title="Do You Consider Yourself a Star Trek Fan?",
+    subtitle="Survey responses",
+    x="Response",
+    y="Percent"
+)
+
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
